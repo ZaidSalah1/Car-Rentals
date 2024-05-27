@@ -12,7 +12,10 @@
         android:theme="@style/Theme.CarRentalSystem"
         tools:targetApi="31">
         <activity
-            android:name=".BMW"
+            android:name=".Brands.Audi"
+            android:exported="false" />
+        <activity
+            android:name=".Brands.BMW"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

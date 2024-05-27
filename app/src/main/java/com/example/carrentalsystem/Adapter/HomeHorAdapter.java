@@ -12,7 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.carrentalsystem.BMW;
+import com.example.carrentalsystem.Brands.Audi;
+import com.example.carrentalsystem.Brands.BMW;
 import com.example.carrentalsystem.Model.HorModel;
 import com.example.carrentalsystem.R;
 
@@ -47,6 +48,10 @@ public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.MyViewHo
                 row_index = position;
                 if(row_index == 0){
                     Intent intent = new Intent(context, BMW.class);
+                    context.startActivity(intent);
+                }
+                if(row_index == 1){
+                    Intent intent = new Intent(context, Audi.class);
                     context.startActivity(intent);
                 }
 
