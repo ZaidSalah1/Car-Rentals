@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> {
 
+
+    private  RecyclerViewInterface recyclerViewInterface;
+
     Context context;
     ArrayList<CarModel> carModelList;
 
@@ -27,13 +30,19 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> 
         this.carModelList = carModelList;
     }
 
+    public CarsAdapter(Context context, ArrayList<CarModel> carModelList, RecyclerViewInterface recyclerViewInterface) {
+        this.context = context;
+        this.carModelList = carModelList;
+        this.recyclerViewInterface = recyclerViewInterface;
+    }
+
     @NonNull
     @Override
     public CarsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // This is where you inflate the layout
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.car_item,parent,false);
-        return new CarsAdapter.MyViewHolder(view);
+        return new CarsAdapter.MyViewHolder(view,recyclerViewInterface);
     }
 
     @Override
@@ -52,20 +61,31 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> 
         return carModelList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public  class MyViewHolder extends RecyclerView.ViewHolder {
         // Its like on create method
 
         TextView carName,price;
         ImageView image;
         CardView cardView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             carName = itemView.findViewById(R.id.txtCarName);
             price = itemView.findViewById(R.id.txtPrice);
             image = itemView.findViewById(R.id.car_img);
-          //  cardView = itemView.findViewById(R.id.cardView_item);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
 
         }
     }
