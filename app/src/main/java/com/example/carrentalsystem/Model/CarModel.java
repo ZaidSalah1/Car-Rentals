@@ -1,11 +1,11 @@
 package com.example.carrentalsystem.Model;
 
-public class HomeVerModel {
+public class CarModel {
     private String name;
     private int img;
     private String price;
 
-    public HomeVerModel(String name, int img, String price) {
+    public CarModel(String name, int img, String price) {
         this.name = name;
         this.img = img;
         this.price = price;

@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Car Rental System</string>
+
+    <string-array name="bmw_names">
+        <item>BMW M2</item>
+        <item>BMW M3</item>
+        <item>BMW X6</item>
+    </string-array>
+
+    <string-array name="bmw_prices">
+        <item>20$</item>
+        <item>25$</item>
+        <item>20$</item>
+    </string-array>
+
+    <string-array name="audi_names">
+        <item>audi R8</item>
+        <item>Audi RS7</item>
+    </string-array>
+
+    <string-array name="audi_prices">
+        <item>20$</item>
+        <item>25$</item>
+    </string-array>
+
+
 </resources>

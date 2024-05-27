@@ -1,11 +1,11 @@
 package com.example.carrentalsystem.Model;
 
-public class HorModel {
+public class BrandsModel {
     private String name;
     private int image;
 
 
-    public HorModel(String name, int image) {
+    public BrandsModel(String name, int image) {
         this.name = name;
         this.image = image;
     }

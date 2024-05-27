@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carrentalsystem.Brands.Audi;
 import com.example.carrentalsystem.Brands.BMW;
-import com.example.carrentalsystem.Model.HorModel;
+import com.example.carrentalsystem.Model.BrandsModel;
 import com.example.carrentalsystem.R;
 
 import java.util.ArrayList;
 
 public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.MyViewHolder> {
     Context context;
-    ArrayList<HorModel> homeHorModelList;
+    ArrayList<BrandsModel> homeHorModelList;
     int row_index = -1;
 
-    public HomeHorAdapter(Context context, ArrayList<HorModel> homeHorModelList){
+    public HomeHorAdapter(Context context, ArrayList<BrandsModel> homeHorModelList){
         this.context = context;
         this.homeHorModelList = homeHorModelList;
     }
