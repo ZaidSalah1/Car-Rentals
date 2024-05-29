@@ -4,7 +4,7 @@ public class CarModel {
     private String name;
     private int img;
     private String price;
-    private int year;
+    private String year;
     private String fuelType;
     private String transmission;
     private int seatingCapacity;
@@ -20,9 +20,16 @@ public class CarModel {
         this.name = name;
         this.img = img;
         this.price = price;
-        this.year = year;
         this.fuelType = fuelType;
         this.transmission = transmission;
+        this.seatingCapacity = seatingCapacity;
+        this.color = color;
+    }
+
+    public CarModel(String name, String color, int seatingCapacity, String year) {
+
+        this.name = name;
+        this.year = year;
         this.seatingCapacity = seatingCapacity;
         this.color = color;
     }
@@ -51,11 +58,11 @@ public class CarModel {
         this.price = price;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -92,4 +99,17 @@ public class CarModel {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "CarModel{" +
+                "name='" + name + '\'' +
+                ", img=" + img +
+                ", price='" + price + '\'' +
+                ", year='" + year + '\'' +
+                ", fuelType='" + fuelType + '\'' +
+                ", transmission='" + transmission + '\'' +
+                ", seatingCapacity=" + seatingCapacity +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }
