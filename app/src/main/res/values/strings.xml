@@ -45,7 +45,6 @@
     </string-array>
 
 
-
     <string-array name="audi_names">
         <item>Audi R8</item>
         <item>Audi RS7</item>
@@ -85,7 +84,6 @@
         <item>Leather Seats, Navigation System</item>
         <item>Sunroof, Parking Sensors</item>
     </string-array>
-
 
 
 </resources>
