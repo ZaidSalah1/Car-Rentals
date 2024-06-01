@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Car Rental System</string>
+
+    <string-array name="bmw_names">
+        <item>BMW M2</item>
+        <item>BMW M3</item>
+        <item>BMW X6</item>
+    </string-array>
+
+    <string-array name="bmw_prices">
+        <item>30$</item>
+        <item>35$</item>
+        <item>20$</item>
+    </string-array>
+
+    <string-array name="bmw_year">
+        <item>2015</item>
+        <item>2020</item>
+        <item>2022</item>
+    </string-array>
+
+    <string-array name="bmw_fuel_type">
+        <item>Petrol</item>
+        <item>Petrol</item>
+        <item>Diesel</item>
+    </string-array>
+
+    <string-array name="bmw_transmission">
+        <item>Automatic</item>
+        <item>Automatic</item>
+        <item>Manual</item>
+    </string-array>
+
+    <string-array name="bmw_seating_capacity">
+        <item>4</item>
+        <item>2</item>
+        <item>4</item>
+    </string-array>
+
+
+    <string-array name="bmw_color">
+        <item>Blue</item>
+        <item>Gold</item>
+        <item>Blue</item>
+    </string-array>
+
+
+    <string-array name="audi_names">
+        <item>Audi R8</item>
+        <item>Audi RS7</item>
+    </string-array>
+
+    <string-array name="audi_prices">
+        <item>90$</item>
+        <item>25$</item>
+    </string-array>
+
+    <string-array name="audi_year">
+        <item>2019</item>
+        <item>2021</item>
+    </string-array>
+
+    <string-array name="audi_fuel_type">
+        <item>Petrol</item>
+        <item>Diesel</item>
+    </string-array>
+
+    <string-array name="audi_transmission">
+        <item>Automatic</item>
+        <item>Automatic</item>
+    </string-array>
+
+    <string-array name="audi_seating_capacity">
+        <item>2</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="audi_color">
+        <item>Red</item>
+        <item>Black</item>
+    </string-array>
+
+    <string-array name="audi_features">
+        <item>Leather Seats, Navigation System</item>
+        <item>Sunroof, Parking Sensors</item>
+    </string-array>
+
+
+</resources>
