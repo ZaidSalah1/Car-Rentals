@@ -26,6 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DetailsCarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Brands.Audi"
+            android:exported="false" />
+        <activity
+            android:name=".Brands.BMW"
+            android:exported="false" />
     </application>
 
 </manifest>
