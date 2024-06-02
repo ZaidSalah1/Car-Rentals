@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                       //  CarModel car = new CarModel(modelName, "blue", num_of_seats, year);
 
                         //String name,  String price, String year, String fuelType, int seatingCapacity, String color, String carImage, String brandImage
-                        CarModel car = new CarModel(carName,"20$", year,num_of_seats, "blue", modelImage,brandName);
+                        CarModel car = new CarModel(carName,"20$", year,num_of_seats, "blue", modelImage,brandImage);
 
                         cars.add(car);
                     }

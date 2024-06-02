@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.carrenals.Model.CarModel;
 import com.example.carrenals.R;
 
@@ -51,8 +52,10 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> 
 
         holder.carName.setText(carModelList.get(position).getName());
         holder.price.setText(carModelList.get(position).getPrice());
-        holder.image.setImageResource(carModelList.get(position).getImg());
+        //holder.image.setImageResource(carModelList.get(position).getImg());
 
+        Glide.with(context).load(carModelList.get(position).getCarImage()).into(holder.image);
+        Glide.with(context).load(carModelList.get(position).getBrandImage()).into(holder.brandImage);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> 
         // Its like on create method
 
         TextView carName,price;
-        ImageView image;
+        ImageView image,brandImage,brandImage2;
         CardView cardView;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
@@ -73,6 +76,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> 
             carName = itemView.findViewById(R.id.txtCarName);
             price = itemView.findViewById(R.id.txtPrice);
             image = itemView.findViewById(R.id.car_img);
+            brandImage = itemView.findViewById(R.id.brand_icon_img);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -7,15 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.carrenals.Brands.Audi;
-import com.example.carrenals.Brands.BMW;
+import com.example.carrenals.Brands.CarsShow;
 import com.example.carrenals.Model.BrandsModel;
 import com.example.carrenals.R;
 
@@ -50,12 +48,23 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.MyViewHold
             row_index = position;
             Intent intent;
             if (row_index == 0) {
-                intent = new Intent(context, BMW.class);
-                Toast.makeText(context, homeHorModelList.get(position).getName(), Toast.LENGTH_LONG).show();
+                intent = new Intent(context, CarsShow.class);
+                intent.putExtra("brand",homeHorModelList.get(position).getName());
             } else if (row_index == 1) {
-                intent = new Intent(context, Audi.class);
-                Toast.makeText(context, homeHorModelList.get(position).getName(), Toast.LENGTH_LONG).show();
-            } else {
+                intent = new Intent(context, CarsShow.class);
+                intent.putExtra("brand",homeHorModelList.get(position).getName());
+            }else if (row_index == 2) {
+                intent = new Intent(context, CarsShow.class);
+                intent.putExtra("brand",homeHorModelList.get(position).getName());
+            }else if (row_index == 3) {
+                intent = new Intent(context, CarsShow.class);
+                intent.putExtra("brand",homeHorModelList.get(position).getName());
+            }
+            else if (row_index == 4) {
+                intent = new Intent(context, CarsShow.class);
+                intent.putExtra("brand",homeHorModelList.get(position).getName());
+            }
+            else {
                 return;
             }
             context.startActivity(intent);
