@@ -28,8 +28,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private List<CarModel> cars = new ArrayList<>();
-    private static final String URL = "http://192.168.1.105:80/api/cars.php";
-    private static final String URL_Brands = "http://192.168.1.105:80/api/get_brands.php";
+    private static final String URL = "http://192.168.1.117/api/cars.php";
+    private static final String URL_Brands = "http://192.168.1.117/api/get_brands.php";
 
     private RecyclerView brandRecyclerView;
     private BrandsAdapter brandsAdapter;
