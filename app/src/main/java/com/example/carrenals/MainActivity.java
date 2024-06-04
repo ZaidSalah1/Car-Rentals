@@ -3,6 +3,7 @@ package com.example.carrenals;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,22 +35,20 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView brandRecyclerView;
     private BrandsAdapter brandsAdapter;
     private ArrayList<BrandsModel> modelsList;
+    private EditText textInputEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        textInputEditText = findViewById(R.id.textInputEditText);
 
         listView = findViewById(R.id.cars);
+
         loadCars();
-//        brandRecyclerView = findViewById(R.id.rec);
-//        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-//
-//        brandsAdapter = new BrandsAdapter(this,modelsList);
-//        brandRecyclerView.setAdapter(brandsAdapter);
         modelsList = new ArrayList<>();
         loadBrands();
+
     }
 
     private void loadCars() {
@@ -66,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
                         String modelName = carObj.getString("model_name");
                         String brandName = carObj.getString("brand_name");
                         String carName = brandName + modelName;
-                      //  String color = carObj.getString("color");
+                        // String color = carObj.getString("color");
                         int num_of_seats = carObj.getInt("num_of_seats");
                         String year = carObj.getString("model_year");
-                        String modelImage  = carObj.getString("model_image");
+                        String modelImage = carObj.getString("model_image");
                         String brandImage = carObj.getString("brand_image");
 
                         //String name, String color, int seatingCapacity, String year
-                      //  CarModel car = new CarModel(modelName, "blue", num_of_seats, year);
+                        //  CarModel car = new CarModel(modelName, "blue", num_of_seats, year);
 
                         //String name,  String price, String year, String fuelType, int seatingCapacity, String color, String carImage, String brandImage
-                        CarModel car = new CarModel(carName,"20$", year,num_of_seats, "blue", modelImage,brandImage);
+                        CarModel car = new CarModel(carName, "20$", year, num_of_seats, "blue", modelImage, brandImage);
 
                         cars.add(car);
                     }
@@ -100,27 +99,27 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(MainActivity.this).add(request);
     }
 
-    private void loadBrands(){
+    private void loadBrands() {
         brandRecyclerView = findViewById(R.id.rec);
-        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Brands,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONArray array = new JSONArray(response);
-                            for (int i = 0; i <array.length(); i++){
+                            for (int i = 0; i < array.length(); i++) {
                                 JSONObject brandObj = array.getJSONObject(i);
                                 String name = brandObj.getString("brand_name");
                                 String image = brandObj.getString("image");
                                 Log.d("MainActivity", "Brand: " + name + ", Image: " + image); // Log each brand's data
-                                modelsList.add(new BrandsModel(name,image));
+                                modelsList.add(new BrandsModel(name, image));
                             }
-                            brandsAdapter = new BrandsAdapter(MainActivity.this,modelsList);
+                            brandsAdapter = new BrandsAdapter(MainActivity.this, modelsList);
                             brandRecyclerView.setAdapter(brandsAdapter);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             Toast.makeText(MainActivity.this, "Error parsing JSON", Toast.LENGTH_LONG).show();
                         }
@@ -134,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(MainActivity.this).add(stringRequest);
     }
 
-    private void horData(){
+
+    private void horData() {
         modelsList = new ArrayList<>();
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
         modelsList.add(new BrandsModel("Audi", R.drawable.audi_iocn));
@@ -143,5 +143,19 @@ public class MainActivity extends AppCompatActivity {
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
     }
+
+    private void filterCars(String searchText) {
+        List<CarModel> filteredList = new ArrayList<>();
+
+        for (CarModel car : cars) {
+            if (car.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(car);
+            }
+        }
+
+        ArrayAdapter<CarModel> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, filteredList);
+        listView.setAdapter(adapter);
+    }
+
 
 }

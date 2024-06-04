@@ -84,11 +84,11 @@ public class MainActivityLogin extends AppCompatActivity {
 
     private void getCustomerByEmail(String email, String enteredPassword) {
         String requestUrl = URL + "api/customers.php?email=" + email;
-        Log.d("URL", requestUrl); // أضف هذه الرسالة للتحقق من URL
+        Log.d("URL", requestUrl); //
 
         StringRequest request = new StringRequest(Request.Method.GET, requestUrl, res -> {
             try {
-                Log.d("Response", res); // أضف هذه الرسالة للتحقق من الاستجابة
+                Log.d("Response", res); //
                 String jsonResponse = res.replace("Hello", "");
                 JSONObject jsonObject = new JSONObject(jsonResponse);
                 JSONObject customerObject = jsonObject.getJSONObject("customer");
@@ -113,10 +113,10 @@ public class MainActivityLogin extends AppCompatActivity {
         }, err -> {
             if (err.networkResponse != null) {
                 String errorMsg = "Error code: " + err.networkResponse.statusCode + "\n" + new String(err.networkResponse.data);
-                Log.e("VolleyError", errorMsg); // أضف هذه الرسالة للتحقق من تفاصيل الخطأ
+                Log.e("VolleyError", errorMsg); //
                 Toast.makeText(MainActivityLogin.this, errorMsg, Toast.LENGTH_LONG).show();
             } else {
-                Log.e("VolleyError", err.toString()); // أضف هذه الرسالة للتحقق من تفاصيل الخطأ
+                Log.e("VolleyError", err.toString()); //
                 Toast.makeText(MainActivityLogin.this, err.toString(), Toast.LENGTH_LONG).show();
             }
         });
