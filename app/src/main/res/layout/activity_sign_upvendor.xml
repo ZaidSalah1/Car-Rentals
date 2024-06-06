@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp">
+    tools:context=".SignUpvendor">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -181,16 +181,16 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="114dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="Gender"
+                android:text="business_name"
 
                 android:textAlignment="center"
                 android:textSize="18dp" />
 
-            <Spinner
-                android:id="@+id/spinnerGinder"
+            <EditText
+                android:id="@+id/edtbusiness_name"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
                 android:layout_marginStart="30dp"
@@ -259,7 +259,7 @@
                 android:id="@+id/txtBack"
                 android:layout_width="253dp"
                 android:layout_height="33dp"
-                android:text="Back to Login"
+                android:text="Back to MainActivityLogin"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 

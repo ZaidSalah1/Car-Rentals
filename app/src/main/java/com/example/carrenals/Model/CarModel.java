@@ -141,4 +141,7 @@ public class CarModel {
                 ", color='" + color + '\'' +
                 '}';
     }
+    public String getBrandName() {
+        return this.name;
+    }
 }

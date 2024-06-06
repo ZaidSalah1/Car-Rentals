@@ -7,7 +7,6 @@
     tools:context=".MainActivity"
     android:layout_margin="8dp">
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -28,8 +27,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -53,6 +50,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rec" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -62,13 +69,12 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rec" />
+        app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
 
     <ListView
         android:id="@+id/cars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />

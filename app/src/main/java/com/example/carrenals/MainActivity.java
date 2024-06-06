@@ -1,8 +1,13 @@
 package com.example.carrenals;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private BrandsAdapter brandsAdapter;
     private ArrayList<BrandsModel> modelsList;
     private EditText textInputEditText;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +50,25 @@ public class MainActivity extends AppCompatActivity {
         textInputEditText = findViewById(R.id.textInputEditText);
 
         listView = findViewById(R.id.cars);
+        logoutButton = findViewById(R.id.logoutButton);
 
         loadCars();
         modelsList = new ArrayList<>();
         loadBrands();
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivityLogin.class);
+                startActivity(intent);
+                finish(); // Finish MainActivity to ensure onDestroy is called
+            }
+        });
+
+
+        textInputEditText = findViewById(R.id.textInputEditText);
+
+
+
 
     }
 
@@ -88,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("MainActivity", "Error parsing JSON response", e);
+               // Log.e("MainActivity", "Error parsing JSON response", e);
                 Toast.makeText(MainActivity.this, "Error parsing data", Toast.LENGTH_LONG).show();
             }
         }, err -> {
-            Log.e("MainActivity", "Error fetching data", err);
+           // Log.e("MainActivity", "Error fetching data", err);
             Toast.makeText(MainActivity.this, "Error fetching data: " + err.toString(), Toast.LENGTH_LONG).show();
         });
 
@@ -102,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadBrands() {
         brandRecyclerView = findViewById(R.id.rec);
         brandRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Brands,
                 new Response.Listener<String>() {
@@ -121,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                             brandRecyclerView.setAdapter(brandsAdapter);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "Error parsing JSON", Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -130,11 +149,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error: " + error.toString(), Toast.LENGTH_LONG).show();
             }
         });
+
         Volley.newRequestQueue(MainActivity.this).add(stringRequest);
     }
 
 
+
+
+
     private void horData() {
+
         modelsList = new ArrayList<>();
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
         modelsList.add(new BrandsModel("Audi", R.drawable.audi_iocn));
@@ -142,20 +166,13 @@ public class MainActivity extends AppCompatActivity {
         modelsList.add(new BrandsModel("Chevrolet", R.drawable.chevrolet_logo));
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
+
+        modelsList.add(new BrandsModel("Ford", R.drawable.ford_ic));
     }
 
-    private void filterCars(String searchText) {
-        List<CarModel> filteredList = new ArrayList<>();
 
-        for (CarModel car : cars) {
-            if (car.getName().toLowerCase().contains(searchText.toLowerCase())) {
-                filteredList.add(car);
-            }
-        }
 
-        ArrayAdapter<CarModel> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, filteredList);
-        listView.setAdapter(adapter);
-    }
+
 
 
 }

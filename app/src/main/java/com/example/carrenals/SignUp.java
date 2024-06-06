@@ -54,6 +54,11 @@ public class SignUp extends AppCompatActivity {
         String[] city_Jordan = {"Amman", "Irbid", "Al Zarqa"};
         String[] city_Saudi = {"Dammam", "Dhahran", "Al Bahah"};
 
+
+
+
+
+
         txtBack = findViewById(R.id.txtBack);
 
         // Set an OnClickListener on the TextView
@@ -86,63 +91,47 @@ public class SignUp extends AppCompatActivity {
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         country.setAdapter(countryAdapter);
 
+
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCountry = country.getSelectedItem().toString();
-                ArrayAdapter<String> cityAdapter;
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-                switch (selectedCountry) {
-                    case "Palestine":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Palestine);
+                if (arg0.equals(country)) {
+
+                    if (country.getSelectedItem().equals("Palistine")) {
+                        ArrayAdapter<String> s1 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Palestine);
+                        s1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s1);
                         zip.setText("+970");
-                        break;
-                    case "Egypt":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Egypt);
+                    } else if (country.getSelectedItem().equals("Egypt")) {
+                        ArrayAdapter<String> s2 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Egypt);
+                        s2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s2);
                         zip.setText("+20");
-                        break;
-                    case "Jordan":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Jordan);
+
+                    } else if (country.getSelectedItem().equals("Jordan")) {
+                        ArrayAdapter<String> s3 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Jordan);
+                        s3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s3);
                         zip.setText("+962");
-                        break;
-                    case "Saudi Arabia":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Saudi);
+
+                    } else {
+                        ArrayAdapter<String> s3 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Saudi);
+                        s3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s3);
                         zip.setText("+966");
-                        break;
-                    default:
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, new String[]{});
-                        break;
-                }
 
-                cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                city.setAdapter(cityAdapter);
 
-                // Set the text based on selectedCountry
-                String countryCodeText = "";
-                switch (selectedCountry) {
-                    case "Palestine":
-                        countryCodeText = "970";
-                        break;
-                    case "Egypt":
-                        countryCodeText = "20";
-                        break;
-                    case "Jordan":
-                        countryCodeText = "962";
-                        break;
-                    case "Saudi Arabia":
-                        countryCodeText = "966";
-                        break;
-                    default:
-                        countryCodeText = "970"; // Set to "eng" for other countries
-                        break;
+                    }
                 }
-                zip.setText(countryCodeText);
             }
+
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No action needed
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
             }
+
         });
 
 
@@ -225,7 +214,6 @@ public class SignUp extends AppCompatActivity {
             }
             Toast.makeText(SignUp.this, errorMessage, Toast.LENGTH_LONG).show();
         });
-
 
         // Adding request to request queue
         RequestQueue requestQueue = Volley.newRequestQueue(SignUp.this);

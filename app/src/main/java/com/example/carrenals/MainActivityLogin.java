@@ -26,6 +26,8 @@ public class MainActivityLogin extends AppCompatActivity {
     private FloatingActionButton loginButton;
     private TextView txtSignUp;
 
+    private TextView txtSignUptovendor;
+
     String URL = "http://192.168.1.117/";
 
     @SuppressLint("MissingInflatedId")
@@ -38,6 +40,7 @@ public class MainActivityLogin extends AppCompatActivity {
         passwordEditText = findViewById(R.id.PasswordBox);
         rememberMeCheckBox = findViewById(R.id.login_rememberme);
         loginButton = findViewById(R.id.loginButton);
+        txtSignUptovendor=findViewById(R.id.txtSignUp);
         txtSignUp = findViewById(R.id.txtSignUp);
 
         sharedPrefManager = SharedPrefManager.getInstance(this);
@@ -61,6 +64,7 @@ public class MainActivityLogin extends AppCompatActivity {
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
 
+
             if (isValidEmail(email) && isValidPassword(password)) {
                 getCustomerByEmail(email, password);
             } else {
@@ -71,7 +75,15 @@ public class MainActivityLogin extends AppCompatActivity {
 
         });
 
-        txtSignUp.setOnClickListener(v -> startActivity(new Intent(MainActivityLogin.this, SignUp.class)));
+       // txtSignUp.setOnClickListener(v -> startActivity(new Intent(MainActivityLogin.this, SignUp.class)));
+        txtSignUp.setOnClickListener(v -> {
+            Toast.makeText(MainActivityLogin.this, "Sign Up clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivityLogin.this, SignUp.class);
+            startActivity(intent);
+        });
+
+
+
     }
 
     private boolean isValidEmail(String email) {
@@ -98,17 +110,23 @@ public class MainActivityLogin extends AppCompatActivity {
                 String password = customerObject.getString("password");
                 String firstName = customerObject.getString("first_name");
                 String lastName = customerObject.getString("last_name");
+                String user_type = customerObject.getString("user_type");
+                Toast.makeText(MainActivityLogin.this, user_type, Toast.LENGTH_SHORT).show();
 
-                if (password.equals(enteredPassword)) {
+                if (password.equals(enteredPassword)&&user_type.equals("user")) {
                     Intent intent = new Intent(MainActivityLogin.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+                } else if (password.equals(enteredPassword)&&user_type.equals("admin")) {
+//                    Intent intent = new Intent(MainActivityLogin.this, MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 } else {
                     Toast.makeText(MainActivityLogin.this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(MainActivityLogin.this, "Error parsing response", Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivityLogin.this, "Error parsing response", Toast.LENGTH_LONG).show();
             }
         }, err -> {
             if (err.networkResponse != null) {
