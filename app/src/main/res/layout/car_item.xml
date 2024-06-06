@@ -2,21 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/carItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    app:cardCornerRadius="15dp"
-    >
+    android:layout_marginBottom="14dp"
+    app:cardCornerRadius="15dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
 
         <ImageView
-            android:id="@+id/car_img"
+            android:id="@+id/carImage"
             android:layout_width="422dp"
             android:layout_height="247dp"
             android:layout_marginBottom="40dp"
@@ -31,17 +30,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/InnerconstrantLayout"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="100dp"
             android:background="@drawable/round_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/car_img"
+            app:layout_constraintTop_toTopOf="@+id/carImage"
             app:layout_constraintVertical_bias="1.0">
 
             <TextView
-                android:id="@+id/txtCarName"
+                android:id="@+id/carModel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BMW M2"
@@ -56,7 +55,7 @@
                 app:layout_constraintVertical_bias=".15" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/brandImage"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:scrollbarSize="10dp"
@@ -70,7 +69,7 @@
 
 
             <TextView
-                android:id="@+id/txtPrice"
+                android:id="@+id/carPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="30$ per day"
@@ -79,7 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.48"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtCarName" />
+                app:layout_constraintTop_toBottomOf="@+id/carModel" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
