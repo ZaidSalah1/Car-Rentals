@@ -1,23 +1,28 @@
 package com.example.carrentalsystem;
-
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import com.example.carrentalsystem.Adapter.BrandsAdapter;
+import com.example.carrentalsystem.Model.BrandsModel;
 import com.example.carrentalsystem.Model.Car;
 
 import org.json.JSONArray;
@@ -27,31 +32,147 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private ListView listView;
+    private List<Car> cars = new ArrayList<>();
+    private static final String URL = "http://192.168.1.2/api/cars.php";
+    private static final String URL_Brands = "http://192.168.1.117/api/get_brands.php";
+
+    private RecyclerView brandRecyclerView;
+    private BrandsAdapter brandsAdapter;
+    private ArrayList<BrandsModel> modelsList;
+    private EditText textInputEditText;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+//        textInputEditText = findViewById(R.id.textInputEditText);
+//
+//        listView = findViewById(R.id.cars);
+//       // logoutButton = findViewById(R.id.logoutButton);
+//
+//        loadCars();
+//        modelsList = new ArrayList<>();
+//        loadBrands();
+//        logoutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, MainActivityLogin.class);
+//                startActivity(intent);
+//                finish(); // Finish MainActivity to ensure onDestroy is called
+//            }
+//        });
+//
+//
+//        textInputEditText = findViewById(R.id.textInputEditText);
+//
+
+
+
+    }
+
+    private void loadCars() {
+        StringRequest request = new StringRequest(Request.Method.GET, URL, res -> {
+            try {
+                JSONObject responseObj = new JSONObject(res);
+
+                if (responseObj.has("cars")) {
+                    JSONArray carsArray = responseObj.getJSONArray("cars");
+
+                    for (int i = 0; i < carsArray.length(); i++) {
+                        JSONObject carObj = carsArray.getJSONObject(i);
+
+                        String modelName = carObj.getString("model_name");
+                        String brandName = carObj.getString("brand_name");
+                        String carName = brandName + modelName;
+                        // String color = carObj.getString("color");
+                        int num_of_seats = carObj.getInt("num_of_seats");
+                        String year = carObj.getString("model_year");
+                        String modelImage = carObj.getString("model_image");
+                        String brandImage = carObj.getString("brand_image");
+
+                        //String name, String color, int seatingCapacity, String year
+                        //  Car car = new Car(modelName, "blue", num_of_seats, year);
+
+                        //String name,  String price, String year, String fuelType, int seatingCapacity, String color, String carImage, String brandImage
+                        Car car = new Car(carName, "20$", year, num_of_seats, "blue", modelImage, brandImage);
+
+                        cars.add(car);
+                    }
+
+                    ArrayAdapter<Car> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, cars);
+                    listView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(MainActivity.this, "No cars found", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Log.e("MainActivity", "Error parsing JSON response", e);
+                Toast.makeText(MainActivity.this, "Error parsing data", Toast.LENGTH_LONG).show();
+            }
+        }, err -> {
+            // Log.e("MainActivity", "Error fetching data", err);
+            Toast.makeText(MainActivity.this, "Error fetching data: " + err.toString(), Toast.LENGTH_LONG).show();
         });
-        //Log.d(TAG,"HEYO");
 
-        Intent intent = new Intent(this, VendorCars.class);
-        startActivity(intent);
+        Volley.newRequestQueue(MainActivity.this).add(request);
+    }
 
+    private void loadBrands() {
+        brandRecyclerView = findViewById(R.id.rec);
+        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Brands,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject brandObj = array.getJSONObject(i);
+                                String name = brandObj.getString("brand_name");
+                                String image = brandObj.getString("image");
+                                Log.d("MainActivity", "Brand: " + name + ", Image: " + image); // Log each brand's data
+                                modelsList.add(new BrandsModel(name, image));
+                            }
+                            brandsAdapter = new BrandsAdapter(MainActivity.this, modelsList);
+                            brandRecyclerView.setAdapter(brandsAdapter);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
 
+        Volley.newRequestQueue(MainActivity.this).add(stringRequest);
     }
 
 
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+
+    private void horData() {
+
+        modelsList = new ArrayList<>();
+        modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
+        modelsList.add(new BrandsModel("Audi", R.drawable.audi_iocn));
+        modelsList.add(new BrandsModel("Mercedes", R.drawable.mercedes_icon));
+        modelsList.add(new BrandsModel("Chevrolet", R.drawable.chevrolet_logo));
+        modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
+        modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
+
+        modelsList.add(new BrandsModel("Ford", R.drawable.ford_ic));
     }
+
+
+
+
+
+
 }

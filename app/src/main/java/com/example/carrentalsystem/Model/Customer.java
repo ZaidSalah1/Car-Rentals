@@ -10,6 +10,7 @@ public class Customer {
     private String lastName;
     private String gender;
     private String phoneNumber;
+    private boolean isVendor;
 
     public Customer(String email, String password, String firstName, String lastName, String gender, String phoneNumber) {
         this.email = email;
