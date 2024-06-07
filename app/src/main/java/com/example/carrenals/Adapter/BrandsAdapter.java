@@ -1,5 +1,6 @@
 package com.example.carrenals.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textName.setText(homeHorModelList.get(position).getName());
         // Load image using Glide (if URL)
         Glide.with(context).load(homeHorModelList.get(position).getImage2()).into(holder.imageView);

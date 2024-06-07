@@ -1,8 +1,14 @@
 package com.example.carrenals;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,22 +40,36 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView brandRecyclerView;
     private BrandsAdapter brandsAdapter;
     private ArrayList<BrandsModel> modelsList;
+    private EditText textInputEditText;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        textInputEditText = findViewById(R.id.textInputEditText);
 
         listView = findViewById(R.id.cars);
+        logoutButton = findViewById(R.id.logoutButton);
+
         loadCars();
-//        brandRecyclerView = findViewById(R.id.rec);
-//        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-//
-//        brandsAdapter = new BrandsAdapter(this,modelsList);
-//        brandRecyclerView.setAdapter(brandsAdapter);
         modelsList = new ArrayList<>();
         loadBrands();
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivityLogin.class);
+                startActivity(intent);
+                finish(); // Finish MainActivity to ensure onDestroy is called
+            }
+        });
+
+
+        textInputEditText = findViewById(R.id.textInputEditText);
+
+
+
+
     }
 
     private void loadCars() {
@@ -66,17 +86,17 @@ public class MainActivity extends AppCompatActivity {
                         String modelName = carObj.getString("model_name");
                         String brandName = carObj.getString("brand_name");
                         String carName = brandName + modelName;
-                      //  String color = carObj.getString("color");
+                        // String color = carObj.getString("color");
                         int num_of_seats = carObj.getInt("num_of_seats");
                         String year = carObj.getString("model_year");
-                        String modelImage  = carObj.getString("model_image");
+                        String modelImage = carObj.getString("model_image");
                         String brandImage = carObj.getString("brand_image");
 
                         //String name, String color, int seatingCapacity, String year
-                      //  CarModel car = new CarModel(modelName, "blue", num_of_seats, year);
+                        //  CarModel car = new CarModel(modelName, "blue", num_of_seats, year);
 
                         //String name,  String price, String year, String fuelType, int seatingCapacity, String color, String carImage, String brandImage
-                        CarModel car = new CarModel(carName,"20$", year,num_of_seats, "blue", modelImage,brandImage);
+                        CarModel car = new CarModel(carName, "20$", year, num_of_seats, "blue", modelImage, brandImage);
 
                         cars.add(car);
                     }
@@ -89,40 +109,38 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("MainActivity", "Error parsing JSON response", e);
+               // Log.e("MainActivity", "Error parsing JSON response", e);
                 Toast.makeText(MainActivity.this, "Error parsing data", Toast.LENGTH_LONG).show();
             }
         }, err -> {
-            Log.e("MainActivity", "Error fetching data", err);
+           // Log.e("MainActivity", "Error fetching data", err);
             Toast.makeText(MainActivity.this, "Error fetching data: " + err.toString(), Toast.LENGTH_LONG).show();
         });
 
         Volley.newRequestQueue(MainActivity.this).add(request);
     }
 
-    private void loadBrands(){
+    private void loadBrands() {
         brandRecyclerView = findViewById(R.id.rec);
-        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
+        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Brands,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONArray array = new JSONArray(response);
-                            for (int i = 0; i <array.length(); i++){
+                            for (int i = 0; i < array.length(); i++) {
                                 JSONObject brandObj = array.getJSONObject(i);
                                 String name = brandObj.getString("brand_name");
                                 String image = brandObj.getString("image");
                                 Log.d("MainActivity", "Brand: " + name + ", Image: " + image); // Log each brand's data
-                                modelsList.add(new BrandsModel(name,image));
+                                modelsList.add(new BrandsModel(name, image));
                             }
-                            brandsAdapter = new BrandsAdapter(MainActivity.this,modelsList);
+                            brandsAdapter = new BrandsAdapter(MainActivity.this, modelsList);
                             brandRecyclerView.setAdapter(brandsAdapter);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "Error parsing JSON", Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -131,10 +149,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error: " + error.toString(), Toast.LENGTH_LONG).show();
             }
         });
+
         Volley.newRequestQueue(MainActivity.this).add(stringRequest);
     }
 
-    private void horData(){
+
+
+
+
+    private void horData() {
+
         modelsList = new ArrayList<>();
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
         modelsList.add(new BrandsModel("Audi", R.drawable.audi_iocn));
@@ -142,6 +166,13 @@ public class MainActivity extends AppCompatActivity {
         modelsList.add(new BrandsModel("Chevrolet", R.drawable.chevrolet_logo));
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
         modelsList.add(new BrandsModel("BMW", R.drawable.bmw_icon));
+
+        modelsList.add(new BrandsModel("Ford", R.drawable.ford_ic));
     }
+
+
+
+
+
 
 }

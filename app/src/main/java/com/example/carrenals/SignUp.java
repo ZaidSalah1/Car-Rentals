@@ -1,9 +1,6 @@
 package com.example.carrenals;
 
 
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -38,11 +34,13 @@ public class SignUp extends AppCompatActivity {
     TextView Phone;
     TextView Password;
     TextView Confirm_password;
-    Spinner Gender;
+    Spinner gender;
     Spinner city;
     Spinner country;
     Button register;
     TextView zip;
+    private static final String URL = "http://192.168.1.117/";
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,6 +53,11 @@ public class SignUp extends AppCompatActivity {
         String[] city_Egypt = {"Cairo", "Alexandria", "Gizeh"};
         String[] city_Jordan = {"Amman", "Irbid", "Al Zarqa"};
         String[] city_Saudi = {"Dammam", "Dhahran", "Al Bahah"};
+
+
+
+
+
 
         txtBack = findViewById(R.id.txtBack);
 
@@ -75,76 +78,60 @@ public class SignUp extends AppCompatActivity {
         Password = findViewById(R.id.signUpPassBox);
         Confirm_password = findViewById(R.id.signUpPassBox2);
         zip = findViewById(R.id.Zipcode);
-        Gender = findViewById(R.id.spinnerGinder);
+        gender = findViewById(R.id.spinnerGinder);
         city = findViewById(R.id.spinnerCity);
         country = findViewById(R.id.spinnerCountry);
         register = findViewById(R.id.button2);
 
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Gender.setAdapter(genderAdapter);
+        gender.setAdapter(genderAdapter);
 
         ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(this, R.array.Contry, android.R.layout.simple_spinner_item);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         country.setAdapter(countryAdapter);
 
+
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCountry = country.getSelectedItem().toString();
-                ArrayAdapter<String> cityAdapter;
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-                switch (selectedCountry) {
-                    case "Palestine":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Palestine);
+                if (arg0.equals(country)) {
+
+                    if (country.getSelectedItem().equals("Palistine")) {
+                        ArrayAdapter<String> s1 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Palestine);
+                        s1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s1);
                         zip.setText("+970");
-                        break;
-                    case "Egypt":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Egypt);
+                    } else if (country.getSelectedItem().equals("Egypt")) {
+                        ArrayAdapter<String> s2 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Egypt);
+                        s2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s2);
                         zip.setText("+20");
-                        break;
-                    case "Jordan":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Jordan);
+
+                    } else if (country.getSelectedItem().equals("Jordan")) {
+                        ArrayAdapter<String> s3 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Jordan);
+                        s3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s3);
                         zip.setText("+962");
-                        break;
-                    case "Saudi Arabia":
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, city_Saudi);
+
+                    } else {
+                        ArrayAdapter<String> s3 = new ArrayAdapter<String>(SignUp.this, android.R.layout.simple_spinner_item, city_Saudi);
+                        s3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        city.setAdapter(s3);
                         zip.setText("+966");
-                        break;
-                    default:
-                        cityAdapter = new ArrayAdapter<>(SignUp.this, android.R.layout.simple_spinner_item, new String[]{});
-                        break;
-                }
 
-                cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                city.setAdapter(cityAdapter);
 
-                // Set the text based on selectedCountry
-                String countryCodeText = "";
-                switch (selectedCountry) {
-                    case "Palestine":
-                        countryCodeText = "970";
-                        break;
-                    case "Egypt":
-                        countryCodeText = "20";
-                        break;
-                    case "Jordan":
-                        countryCodeText = "962";
-                        break;
-                    case "Saudi Arabia":
-                        countryCodeText = "966";
-                        break;
-                    default:
-                        countryCodeText = "970"; // Set to "eng" for other countries
-                        break;
+                    }
                 }
-                zip.setText(countryCodeText);
             }
+
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No action needed
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
             }
+
         });
 
 
@@ -171,7 +158,6 @@ public class SignUp extends AppCompatActivity {
                 }
 
 
-
                 String passwordRegex = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})";
                 Pattern passwordPattern = Pattern.compile(passwordRegex);
                 Matcher passwordMatcher = passwordPattern.matcher(Password.getText().toString());
@@ -184,31 +170,15 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this, "First and last name must be at least 3 characters long", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                Customer newCustomer = new Customer();
-                newCustomer.setEmail(Email.getText().toString());
-                newCustomer.setPassword(Password.getText().toString());
-                newCustomer.setGender(Gender.getSelectedItem().toString());
-                newCustomer.setCity(city.getSelectedItem().toString());
-                newCustomer.setCountry(country.getSelectedItem().toString());
-                newCustomer.setFirst_name(first_name.getText().toString());
-                newCustomer.setSecond_name(last_name.getText().toString());
-                newCustomer.setPhone(Phone.getText().toString());
-
+                CreateCustomer();
 
                 Intent intent = new Intent(SignUp.this, MainActivityLogin.class);
                 startActivity(intent);
                 finish();
             }
         });
-
-
-
-
-
-
-
     }
+
     private void CreateCustomer() {
         String requestUrl = URL + "api/customers.php";
 
@@ -216,37 +186,34 @@ public class SignUp extends AppCompatActivity {
         try {
             postData.put("first_name", first_name.getText().toString());
             postData.put("last_name", last_name.getText().toString());
-            postData.put("Email", Email.getText().toString());
-            postData.put("Password", Password.getText().toString());
-            postData.put("Gender", Gender.getSelectedItem().toString());
+            postData.put("email", Email.getText().toString());
+            postData.put("password", Password.getText().toString());
+            postData.put("gender", gender.getSelectedItem().toString());
+            postData.put("phone_number", Phone.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         System.out.println(requestUrl);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, requestUrl, postData,
-                response -> {
-                    try {
-                        // Handle response
-                        System.out.println(response.toString());
-                        Toast.makeText(SignUp.this, "Customer created successfully", Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(SignUp.this, "Error parsing response", Toast.LENGTH_LONG).show();
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
-                    String errorMessage = "Error: " + error.toString();
-                    if (error.networkResponse != null) {
-                        errorMessage += " Status Code: " + error.networkResponse.statusCode;
-                        errorMessage += " Response Data: " + new String(error.networkResponse.data);
-                    }
-                    Toast.makeText(SignUp.this, errorMessage, Toast.LENGTH_LONG).show();
-                }
-        );
-
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, requestUrl, postData, response -> {
+            try {
+                // Handle response
+                System.out.println(response.toString());
+                Toast.makeText(SignUp.this, "Customer created successfully", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(SignUp.this, "Error parsing response", Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            error.printStackTrace();
+            String errorMessage = "Error: " + error.toString();
+            if (error.networkResponse != null) {
+                errorMessage += " Status Code: " + error.networkResponse.statusCode;
+                errorMessage += " Response Data: " + new String(error.networkResponse.data);
+            }
+            Toast.makeText(SignUp.this, errorMessage, Toast.LENGTH_LONG).show();
+        });
 
         // Adding request to request queue
         RequestQueue requestQueue = Volley.newRequestQueue(SignUp.this);

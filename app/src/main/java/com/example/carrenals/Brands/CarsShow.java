@@ -28,7 +28,7 @@ public class CarsShow extends AppCompatActivity implements RecyclerViewInterface
 
     ArrayList<CarModel> carModels = new ArrayList<>();
     int [] carsImages = {R.drawable.bmw_car, R.drawable.bmw_m3,R.drawable.bmw_x6m};
-    private static final String BASE_URL = "http://192.168.1.105:80/api/cars.php";
+    private static final String BASE_URL = "http://192.168.1.117/api/cars.php";
     RecyclerView recyclerView;
 
     String brand;
@@ -41,12 +41,12 @@ public class CarsShow extends AppCompatActivity implements RecyclerViewInterface
         recyclerView  = findViewById(R.id.bmw_list);
         intent = getIntent();
         brand = intent.getStringExtra("brand");
-        
-       // setCarModels();
+
+        // setCarModels();
         loadCars();
-      //  CarsAdapter adapter = new CarsAdapter(this,carModels,this);
-      //  recyclerView.setAdapter(adapter);
-      //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //  CarsAdapter adapter = new CarsAdapter(this,carModels,this);
+        //  recyclerView.setAdapter(adapter);
+        //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -61,7 +61,7 @@ public class CarsShow extends AppCompatActivity implements RecyclerViewInterface
                     for (int i=0; i< carsArray.length(); i++){
                         JSONObject carObj = carsArray.getJSONObject(i);
                         String modelName = carObj.getString("model_name");
-                //        Toast.makeText(CarsShow.this, modelName, Toast.LENGTH_LONG).show();
+                        //        Toast.makeText(CarsShow.this, modelName, Toast.LENGTH_LONG).show();
                         String brandName = carObj.getString("brand_name");
                         String carName = brandName + modelName;
 //                        //  String color = carObj.getString("color");
@@ -73,9 +73,9 @@ public class CarsShow extends AppCompatActivity implements RecyclerViewInterface
 //                        Toast.makeText(CarsShow.this, modelName, Toast.LENGTH_LONG).show();
                         carModels.add(car);
                     }
-                   intent.putExtra("brandTopImage",brandImage);
+                    intent.putExtra("brandTopImage",brandImage);
                     CarsAdapter adapter = new CarsAdapter(CarsShow.this,carModels);
-                   recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 }
             }catch(Exception ex){
@@ -83,7 +83,7 @@ public class CarsShow extends AppCompatActivity implements RecyclerViewInterface
                 Toast.makeText(CarsShow.this, "Error parsing data", Toast.LENGTH_LONG).show();
             }
         },error ->{
-           // Toast.makeText(CarsShow.this, "Error fetching data: " + error.toString(), Toast.LENGTH_LONG).show();
+            // Toast.makeText(CarsShow.this, "Error fetching data: " + error.toString(), Toast.LENGTH_LONG).show();
 
         });
         Volley.newRequestQueue(CarsShow.this).add(request);
