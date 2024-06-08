@@ -17,9 +17,7 @@
         android:theme="@style/Theme.CarRenals"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".SignUpvendor"
-            android:exported="true" />
+
         <activity
             android:name=".MainActivityLogin"
             android:exported="true">
@@ -31,18 +29,32 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".SignUp"
-            android:exported="true"></activity>
-
-
+            android:exported="true" />
         <activity
             android:name=".DetailsCarActivity"
             android:exported="false" />
         <activity
             android:name=".Brands.CarsShow"
             android:exported="false" />
+        <activity
+            android:name=".CreateCar"
+            android:exported="false" />
+        <activity
+            android:name=".VendorAccount"
+            android:exported="false" />
+        <activity
+            android:name=".ManageCar"
+            android:exported="false" />
+        <activity
+            android:name=".VendorCars"
+            android:exported="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

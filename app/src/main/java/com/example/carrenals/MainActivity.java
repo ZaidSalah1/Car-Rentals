@@ -2,8 +2,6 @@ package com.example.carrenals;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -50,19 +48,19 @@ public class MainActivity extends AppCompatActivity {
         textInputEditText = findViewById(R.id.textInputEditText);
 
         listView = findViewById(R.id.cars);
-        logoutButton = findViewById(R.id.logoutButton);
+       // logoutButton = findViewById(R.id.logoutButton);
 
         loadCars();
         modelsList = new ArrayList<>();
         loadBrands();
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivityLogin.class);
-                startActivity(intent);
-                finish(); // Finish MainActivity to ensure onDestroy is called
-            }
-        });
+//        logoutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, MainActivityLogin.class);
+//                startActivity(intent);
+//                finish(); // Finish MainActivity to ensure onDestroy is called
+//            }
+//        });
 
 
         textInputEditText = findViewById(R.id.textInputEditText);

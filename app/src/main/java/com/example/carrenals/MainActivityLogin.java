@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONObject;
@@ -118,9 +119,9 @@ public class MainActivityLogin extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else if (password.equals(enteredPassword)&&user_type.equals("admin")) {
-//                    Intent intent = new Intent(MainActivityLogin.this, MainActivity.class);
-//                    startActivity(intent);
-//                    finish();
+                    Intent intent = new Intent(MainActivityLogin.this, VendorCars.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(MainActivityLogin.this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 }

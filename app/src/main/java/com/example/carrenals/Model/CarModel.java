@@ -47,6 +47,10 @@ public class CarModel {
         this.brandImage = brandImage;
     }
 
+    public CarModel() {
+
+    }
+
     public String getName() {
         return name;
     }

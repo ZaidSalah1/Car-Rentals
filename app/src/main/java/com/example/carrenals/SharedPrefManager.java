@@ -3,7 +3,8 @@ package com.example.carrenals;
 
 
 
-import android.content.Context;
+import
+        android.content.Context;
 import android.content.SharedPreferences;
 public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "My Shared Preference";

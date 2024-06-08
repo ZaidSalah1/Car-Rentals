@@ -22,6 +22,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.MyViewHolder> 
 
     private  RecyclerViewInterface recyclerViewInterface;
 
+
     Context context;
     ArrayList<CarModel> carModelList;
 
