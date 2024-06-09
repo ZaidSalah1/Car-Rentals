@@ -1,8 +1,10 @@
 package com.example.carrenals.Brands;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,98 +27,73 @@ import java.util.ArrayList;
 
 public class CarsShow extends AppCompatActivity implements RecyclerViewInterface {
 
-
-    ArrayList<CarModel> carModels = new ArrayList<>();
-    int [] carsImages = {R.drawable.bmw_car, R.drawable.bmw_m3,R.drawable.bmw_x6m};
+    private ArrayList<CarModel> carModels = new ArrayList<>();
     private static final String BASE_URL = "http://192.168.1.117/api/cars.php";
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private String brand;
 
-    String brand;
-    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bmw);
+        setContentView(R.layout.car_show_activity);
+        View rootView = findViewById(android.R.id.content);
+        rootView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
-        recyclerView  = findViewById(R.id.bmw_list);
-        intent = getIntent();
+        recyclerView = findViewById(R.id.bmw_list);
+        Intent intent = getIntent();
         brand = intent.getStringExtra("brand");
 
-        // setCarModels();
         loadCars();
-        //  CarsAdapter adapter = new CarsAdapter(this,carModels,this);
-        //  recyclerView.setAdapter(adapter);
-        //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
-    private void loadCars(){
-        String url = BASE_URL +"?brand=" + brand;
-        StringRequest request = new StringRequest(Request.Method.GET,url, res->{
-            String brandImage = "";
-            try{
+    private void loadCars() {
+        String url = BASE_URL + "?brand=" + brand;
+        StringRequest request = new StringRequest(Request.Method.GET, url, res -> {
+            try {
                 JSONObject responseObj = new JSONObject(res);
-                if(responseObj.has("cars")){
+                if (responseObj.has("cars")) {
                     JSONArray carsArray = responseObj.getJSONArray("cars");
-                    for (int i=0; i< carsArray.length(); i++){
+                    for (int i = 0; i < carsArray.length(); i++) {
                         JSONObject carObj = carsArray.getJSONObject(i);
                         String modelName = carObj.getString("model_name");
-                        //        Toast.makeText(CarsShow.this, modelName, Toast.LENGTH_LONG).show();
                         String brandName = carObj.getString("brand_name");
-                        String carName = brandName + modelName;
-//                        //  String color = carObj.getString("color");
+                        String carName = brandName + " " + modelName;
                         int num_of_seats = carObj.getInt("num_of_seats");
                         String year = carObj.getString("model_year");
-                        String modelImage  = carObj.getString("model_image");
-                        brandImage = carObj.getString("brand_image");
-                        CarModel car = new CarModel(carName,"20$", year,num_of_seats, "blue", modelImage,brandImage);
-//                        Toast.makeText(CarsShow.this, modelName, Toast.LENGTH_LONG).show();
+                        String modelImage = carObj.getString("model_image");
+                        String brandImage = carObj.getString("brand_image");
+                        String color = carObj.getString("color");
+                        String price = carObj.getString("price");
+                        String available = carObj.getString("availability");
+                        CarModel car = new CarModel(carName, price + "$", year, num_of_seats, color, modelImage, brandImage, available);
                         carModels.add(car);
                     }
-                    intent.putExtra("brandTopImage",brandImage);
-                    CarsAdapter adapter = new CarsAdapter(CarsShow.this,carModels);
+                    CarsAdapter adapter = new CarsAdapter(CarsShow.this, carModels, CarsShow.this);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 }
-            }catch(Exception ex){
-                Log.e("MainActivity", "Error parsing JSON response", ex);
+            } catch (Exception ex) {
+                Log.e("CarsShow", "Error parsing JSON response", ex);
                 Toast.makeText(CarsShow.this, "Error parsing data", Toast.LENGTH_LONG).show();
             }
-        },error ->{
-            // Toast.makeText(CarsShow.this, "Error fetching data: " + error.toString(), Toast.LENGTH_LONG).show();
-
+        }, error -> {
+            Log.e("CarsShow", "Error fetching data", error);
         });
         Volley.newRequestQueue(CarsShow.this).add(request);
     }
 
-
-
-    private void setCarModels() {
-        String[] carsName = getResources().getStringArray(R.array.bmw_names);
-        String[] carsPrice = getResources().getStringArray(R.array.bmw_prices);
-        String[] carsYear = getResources().getStringArray(R.array.bmw_year);
-        String[] carsFuelType = getResources().getStringArray(R.array.bmw_fuel_type);//??????
-        String[] carsTransmission = getResources().getStringArray(R.array.bmw_transmission);
-        String[] carsSeatingCapacity = getResources().getStringArray(R.array.bmw_seating_capacity);
-        String[] carsColor = getResources().getStringArray(R.array.bmw_color);
-
-        for (int i = 0; i < carsName.length; i++) {
-            carModels.add(new CarModel(carsName[i], carsImages[i], carsPrice[i], Integer.parseInt(carsYear[i]),
-                    carsFuelType[i], carsTransmission[i], Integer.parseInt(carsSeatingCapacity[i]), carsColor[i]));
-        }
-    }
-
-
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(CarsShow.this, DetailsCarActivity.class);
-        intent.putExtra("name",carModels.get(position).getName());
-        intent.putExtra("price",carModels.get(position).getPrice());
-        intent.putExtra("color",carModels.get(position).getColor());
-        intent.putExtra("year",carModels.get(position).getYear());
-        intent.putExtra("transmission",carModels.get(position).getTransmission());
-        intent.putExtra("carsSeatingCapacity",carModels.get(position).getSeatingCapacity());
-        intent.putExtra("carImage",carModels.get(position).getImg());
+        CarModel selectedCar = carModels.get(position);
+        intent.putExtra("name", selectedCar.getName());
+        intent.putExtra("price", selectedCar.getPrice());
+        intent.putExtra("color", selectedCar.getColor());
+        intent.putExtra("year", selectedCar.getYear());
+        intent.putExtra("transmission", selectedCar.getTransmission());
+        intent.putExtra("carsSeatingCapacity", selectedCar.getSeatingCapacity());
+        intent.putExtra("carImage", selectedCar.getCarImage());
+        intent.putExtra("available", selectedCar.getAvailability());
         startActivity(intent);
     }
 }

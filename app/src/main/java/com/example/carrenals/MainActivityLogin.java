@@ -114,7 +114,7 @@ public class MainActivityLogin extends AppCompatActivity {
                 String user_type = customerObject.getString("user_type");
                 Toast.makeText(MainActivityLogin.this, user_type, Toast.LENGTH_SHORT).show();
 
-                if (password.equals(enteredPassword)&&user_type.equals("user")) {
+                if (password.equals(enteredPassword)&&(user_type.equals("user")||user_type.equals(""))) {
                     Intent intent = new Intent(MainActivityLogin.this, MainActivity.class);
                     startActivity(intent);
                     finish();

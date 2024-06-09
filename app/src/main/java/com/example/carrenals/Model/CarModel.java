@@ -2,6 +2,16 @@ package com.example.carrenals.Model;
 
 public class CarModel {
     private String name;
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
+    private  String availability ;
     private int img;
     private String price;
     private String year;
@@ -27,6 +37,17 @@ public class CarModel {
         this.transmission = transmission;
         this.seatingCapacity = seatingCapacity;
         this.color = color;
+    }
+    public CarModel(String name,  String price, String year, int seatingCapacity, String color, String carImage, String brandImage, String availability) {
+        this.name = name;
+        this.price = price;
+        this.year = year;
+        this.fuelType = fuelType;
+        this.seatingCapacity = seatingCapacity;
+        this.color = color;
+        this.carImage = carImage;
+        this.brandImage = brandImage;
+        this.availability = availability;
     }
 
     public CarModel(String name, String color, int seatingCapacity, String year) {

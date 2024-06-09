@@ -106,6 +106,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder>{
         this.onItemClickListener = onItemClickListener;
     }
 
+
     // ViewHolder for each item
     public static class CarViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
