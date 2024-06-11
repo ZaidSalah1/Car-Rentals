@@ -2,13 +2,13 @@ package com.example.carrenals.Model;
 
 import com.example.carrenals.Model.CarModel;
 
-public class VendorCar extends Car {
+public class VendorCar extends CarModel {
 
-    private int vendorId;
+    private Integer vendorId;
 
-    private int carId;
+    private Integer carId;
 
-    private double dailyCost;
+    private Double dailyCost;
 
     public VendorCar(int vendorId, int carId, double dailyCost) {
         super();

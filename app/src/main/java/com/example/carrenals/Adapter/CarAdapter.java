@@ -114,9 +114,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder>{
 
         public CarViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.imageView);
-            brand = itemView.findViewById(R.id.carModelText);
-            cost = itemView.findViewById(R.id.carPriceText);
+            image = itemView.findViewById(R.id.car_img);
+            brand = itemView.findViewById(R.id.txtCarName);
+            cost = itemView.findViewById(R.id.txtPrice);
         }
     }
 
@@ -130,10 +130,10 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         VendorCar vendorCar = vendorCars.get(position);
-        holder.brand.setText(vendorCar.getBrand());
+        holder.brand.setText(vendorCar.getName());
         holder.cost.setText(String.valueOf(vendorCar.getDailyCost()));
 
-        Glide.with(context).load(vendorCar.getImage()).placeholder(R.drawable.bmw_car).into(holder.image);
+        Glide.with(context).load(vendorCar.getCarImage()).placeholder(R.drawable.bmw_car).into(holder.image);
 
         // Set OnClickListener for item
         holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(vendorCar));

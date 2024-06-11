@@ -20,7 +20,7 @@ import com.example.carrenals.R;
 
 import java.util.ArrayList;
 
-public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.MyViewHolder> {
+public class  BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.MyViewHolder> {
     Context context;
     ArrayList<BrandsModel> homeHorModelList;
     int row_index = -1;

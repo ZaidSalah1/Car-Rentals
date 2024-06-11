@@ -28,7 +28,7 @@ public class CarsShow extends AppCompatActivity implements RecyclerViewInterface
 
     ArrayList<CarModel> carModels = new ArrayList<>();
     int [] carsImages = {R.drawable.bmw_car, R.drawable.bmw_m3,R.drawable.bmw_x6m};
-    private static final String BASE_URL = "http://192.168.1.117/api/cars.php";
+    private static final String BASE_URL = "http://192.168.1.2/api/cars.php";
     RecyclerView recyclerView;
 
     String brand;

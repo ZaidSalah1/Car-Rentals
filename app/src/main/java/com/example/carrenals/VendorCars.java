@@ -94,7 +94,7 @@
 //    private void getVendorCars() {
 //        int vendor_id = 1;
 //
-//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/vendor-cars.php/?vendor_id=" + vendor_id, res -> {
+//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/vendor-cars.php/?vendor_id=" + vendor_id, res -> {
 //            try {
 //                JSONObject JSONObj = new JSONObject(res);
 //                JSONArray vendorCarsArray = JSONObj.getJSONArray("vendor_cars");
@@ -124,7 +124,7 @@
 //        for (int i = 0; i < carIds.size(); i++) {
 //            int finalI = i;
 //            int id = carIds.get(i);
-//            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/cars.php/?id=" + id, res -> {
+//            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/cars.php/?id=" + id, res -> {
 //                try {
 //                    JSONObject carObj = new JSONObject(res).getJSONObject("car");
 //                    String brand = carObj.getString("brand");
@@ -154,7 +154,7 @@
 //
 //        int vendorId = vendorCars.get(0).getVendorId();
 //
-//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/vendors.php/?id=" + vendorId, res -> {
+//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/vendors.php/?id=" + vendorId, res -> {
 //            try {
 //                JSONObject obj = new JSONObject(res);
 //                JSONObject vendor = obj.getJSONObject("vendor");
@@ -270,7 +270,7 @@
 //    private void getVendorCars() {
 //        int vendor_id = 1;
 //
-//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/vendor-cars.php/?vendor_id=" + vendor_id, res -> {
+//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/vendor-cars.php/?vendor_id=" + vendor_id, res -> {
 //            try {
 //                JSONObject JSONObj = new JSONObject(res);
 //                JSONArray vendorCarsArray = JSONObj.getJSONArray("vendor_cars");
@@ -300,7 +300,7 @@
 //        for (int i = 0; i < carIds.size(); i++) {
 //            int finalI = i;
 //            int id = carIds.get(i);
-//            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/cars.php/?id=" + id, res -> {
+//            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/cars.php/?id=" + id, res -> {
 //                try {
 //                    JSONObject carObj = new JSONObject(res).getJSONObject("car");
 //                    String brand = carObj.getString("brand");
@@ -330,7 +330,7 @@
 //
 //        int vendorId = vendorCars.get(0).getVendorId();
 //
-//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/vendors.php/?id=" + vendorId, res -> {
+//        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/vendors.php/?id=" + vendorId, res -> {
 //            try {
 //                JSONObject obj = new JSONObject(res);
 //                JSONObject vendor = obj.getJSONObject("vendor");
@@ -368,6 +368,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.carrenals.Adapter.CarAdapter;
+import com.example.carrenals.Model.BrandsModel;
 import com.example.carrenals.Model.VendorCar;
 
 
@@ -383,11 +384,13 @@ public class VendorCars extends AppCompatActivity {
     private List<VendorCar> vendorCars = new ArrayList<>();
     private CarAdapter carAdapter;
     private List<Integer> carIds = new ArrayList<>();
-    private static final String URL = "http://192.168.1.117";
+
+    private List<BrandsModel> brands = new ArrayList<>();
+    private static final String URL = "http://192.168.1.3";
     private TextView businessName;
     private Button accountButton;
     private Button createCarButton;
-    private int vendor_id = 1;
+    private int vendor_id;
     private String business_name;
     private int customer_id;
 
@@ -395,9 +398,10 @@ public class VendorCars extends AppCompatActivity {
 
         @Override
         public void onItemClick(VendorCar vendorCar) {
-            // Handle item click event here
             Intent intent = new Intent(VendorCars.this, ManageCar.class);
             intent.putExtra("car_id", vendorCar.getCarId());
+            intent.putExtra("car_image", vendorCar.getCarImage());
+            intent.putExtra("car_brand", vendorCar.getBrandName());
             intent.putExtra("vendor_id", vendor_id);
             startActivity(intent);
         }
@@ -413,7 +417,8 @@ public class VendorCars extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        Intent oldIntent = getIntent();
+        vendor_id = oldIntent.getIntExtra("vendor_id", 1);
         setupViews();
         getVendorCars();
 
@@ -445,19 +450,20 @@ public class VendorCars extends AppCompatActivity {
     }
 
     private void getVendorCars() {
-        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/vendor-cars.php/?vendor_id=" + vendor_id, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/vendor-cars.php/?vendor_id=" + vendor_id, res -> {
             try {
                 JSONObject JSONObj = new JSONObject(res);
                 JSONArray vendorCarsArray = JSONObj.getJSONArray("vendor_cars");
 
                 for (int i = 0; i < vendorCarsArray.length(); i++) {
                     JSONObject vendorCarObj = vendorCarsArray.getJSONObject(i);
-                    int car_id = vendorCarObj.getInt("car_id");
-                    double dailyCost = vendorCarObj.getDouble("daily_cost");
+                    Integer model_id = vendorCarObj.getInt("model_id");
+                    Double daily_cost = vendorCarObj.getDouble("daily_cost");
 
-                    VendorCar vendorCar = new VendorCar(vendor_id, car_id, dailyCost);
+
+                    VendorCar vendorCar = new VendorCar(vendor_id, model_id, daily_cost);
                     vendorCars.add(vendorCar);
-                    carIds.add(car_id);
+                    carIds.add(model_id);
                 }
 
                 loadCarsById(carIds);
@@ -474,17 +480,16 @@ public class VendorCars extends AppCompatActivity {
         for (int i = 0; i < carIds.size(); i++) {
             int finalI = i;
             int id = carIds.get(i);
-            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/cars.php/?id=" + id, res -> {
+            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/cars.php/?id=" + id, res -> {
                 try {
                     JSONObject carObj = new JSONObject(res).getJSONObject("car");
-                    String brand = carObj.getString("brand_id");
-                    String image = carObj.getString("image");
-
-                    vendorCars.get(finalI).setBrand(brand);
-                    vendorCars.get(finalI).setImage(image);
+                    Integer brandId = carObj.getInt("brand_id");
+                    String image = carObj.getString("model_image");
+                    brands.add(new BrandsModel(brandId));
+                    vendorCars.get(finalI).setCarImage(image);
 
                     carAdapter.notifyDataSetChanged();
-
+                    loadBrands();
                     // Call getVendorInfo once car details are loaded
                     if (finalI == carIds.size() - 1) {
                         getVendorInfo();
@@ -499,12 +504,35 @@ public class VendorCars extends AppCompatActivity {
         }
     }
 
+    private void loadBrands() {
+        for (int i = 0; i < brands.size(); i++) {
+            int finalI = i;
+            int id = brands.get(i).getBrandId();
+            int finalI1 = i;
+            StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/brands.php/?id=" + id, res -> {
+                try {
+                    JSONObject carObj = new JSONObject(res).getJSONObject("brand");
+                    String brand = carObj.getString("brand_name");
+                    //String image = carObj.getString("image");
+
+                    vendorCars.get(finalI1).setName(brand);
+
+
+                } catch (Exception e) {
+                    Toast.makeText(VendorCars.this, "Error parsing brand details", Toast.LENGTH_LONG).show();
+                }
+            }, err -> Toast.makeText(VendorCars.this, "Error fetching brand details", Toast.LENGTH_LONG).show());
+
+            Volley.newRequestQueue(this).add(request);
+        }
+    }
+
     private void getVendorInfo() {
         if (vendorCars.isEmpty()) return;
 
         int vendorId = vendorCars.get(0).getVendorId();
 
-        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/vendors.php/?id=" + vendorId, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET, URL + "/api/khalil/vendors.php/?id=" + vendorId, res -> {
             try {
                 JSONObject obj = new JSONObject(res);
                 JSONObject vendor = obj.getJSONObject("vendor");

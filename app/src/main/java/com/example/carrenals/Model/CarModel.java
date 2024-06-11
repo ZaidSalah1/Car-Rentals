@@ -148,4 +148,7 @@ public class CarModel {
     public String getBrandName() {
         return this.name;
     }
+
+    public void setBrandId(Integer brandId) {
+    }
 }

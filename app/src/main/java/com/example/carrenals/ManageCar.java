@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.carrenals.Model.VendorCar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class ManageCar extends AppCompatActivity {
 
     private String dailyCost;
 
-    private static String URL = "http://192.168.1.117";
+    private static String URL = "http://192.168.1.3";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +68,7 @@ public class ManageCar extends AppCompatActivity {
     }
 
     private void setupViews() {
-        carImage = findViewById(R.id.imageView);
         carModelText = findViewById(R.id.carModelText);
-        carColorText = findViewById(R.id.carColorText);
         carPriceText = findViewById(R.id.carPriceText);
         carPriceField = findViewById(R.id.priceField);
         saveChangesButton = findViewById(R.id.saveChangesButton);
@@ -77,17 +76,19 @@ public class ManageCar extends AppCompatActivity {
         Intent intent = getIntent();
         vendorId = intent.getIntExtra("vendor_id", 0);
         carId = intent.getIntExtra("car_id", 0 );
+        carModelText.setText(intent.getStringExtra("car_brand"));
+
     }
 
     private void getCarDetails() {
 
-        StringRequest request = new StringRequest(Request.Method.GET, URL +"/api/vendor-cars.php?vendor_id="
-        + vendorId + "&car_id=" + carId, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET, URL +"/api/khalil/vendor-cars.php/?vendor_id="
+        + vendorId + "&model_id=" + carId, res -> {
             try {
                 JSONObject obj = new JSONObject(res);
                 JSONObject vendorCar = obj.getJSONObject("vendor_car");
                 dailyCost = vendorCar.getString("daily_cost");
-                carPriceText.setText(dailyCost);
+                carPriceText.setText("Daily rent cost: $" +dailyCost);
             } catch (Exception ex) {
                 Toast.makeText(this, "FAIL", Toast.LENGTH_LONG).show();
             }
@@ -105,11 +106,12 @@ public class ManageCar extends AppCompatActivity {
 
 
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, URL+"/api/vendor-cars.php?vendor_id="
-                + vendorId + "&car_id=" + carId, updatedCarPrice,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, URL+"/api/khalil/vendor-cars.php/?vendor_id="
+                + vendorId + "&model_id=" + carId, updatedCarPrice,
                 res -> {
                     try {
                         Toast.makeText(ManageCar.this, res.toString(), Toast.LENGTH_LONG).show();
+                        carPriceText.setText("Daily rent cost: $" +carPriceField.getText());
                     } catch (Exception ex) {
                         Toast.makeText(ManageCar.this, "Fail", Toast.LENGTH_LONG).show();
                     }
@@ -123,11 +125,14 @@ public class ManageCar extends AppCompatActivity {
     private void removeCar() throws JSONException {
 
 
-        StringRequest request = new StringRequest(Request.Method.DELETE, URL+"/api/vendor-cars.php?vendor_id="
-                + vendorId + "&car_id=" + carId ,
+        StringRequest request = new StringRequest(Request.Method.DELETE, URL+"/api/khalil/vendor-cars.php/?vendor_id="
+                + vendorId + "&model_id=" + carId ,
                 res -> {
                     try {
                         Toast.makeText(ManageCar.this, res.toString(), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(ManageCar.this, VendorCars.class);
+                        intent.putExtra("vendor_id", vendorId);
+                        startActivity(intent);
                     } catch (Exception ex) {
                         Toast.makeText(ManageCar.this, "Fail", Toast.LENGTH_LONG).show();
                     }

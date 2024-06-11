@@ -1,7 +1,28 @@
 package com.example.carrenals.Model;
 
 public class BrandsModel {
+
+    private int brandId;
     private String name;
+
+    public BrandsModel(Integer brandId) {
+        this.brandId = brandId;
+    }
+
+    public BrandsModel(Integer brandId, String brandName, String image) {
+        this.brandId = brandId;
+        this.name = brandName;
+        this.image2 = image;
+    }
+
+    public int getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
+    }
+
     private int image;
     private String image2;
 
@@ -13,6 +34,10 @@ public class BrandsModel {
     public BrandsModel(String name, int image) {
         this.name = name;
         this.image = image;
+    }
+
+    public BrandsModel() {
+
     }
 
     public String getName() {

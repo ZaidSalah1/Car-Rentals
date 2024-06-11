@@ -29,9 +29,8 @@ public class MainActivityLogin extends AppCompatActivity {
 
     private TextView txtSignUptovendor;
 
-    String URL = "http://192.168.1.117/";
+    String URL = "http://192.168.1.3/";
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,21 +95,20 @@ public class MainActivityLogin extends AppCompatActivity {
     }
 
     private void getCustomerByEmail(String email, String enteredPassword) {
-        String requestUrl = URL + "api/customers.php?email=" + email;
-        Log.d("URL", requestUrl); //
+        String requestUrl ="http://192.168.1.3/api/customers.php/?email="+email;
 
         StringRequest request = new StringRequest(Request.Method.GET, requestUrl, res -> {
+            Toast.makeText(MainActivityLogin.this, "WE IN", Toast.LENGTH_SHORT).show();
+
             try {
-                Log.d("Response", res); //
-                String jsonResponse = res.replace("Hello", "");
-                JSONObject jsonObject = new JSONObject(jsonResponse);
+                JSONObject jsonObject = new JSONObject(res);
                 JSONObject customerObject = jsonObject.getJSONObject("customer");
 
-                int id = customerObject.getInt("customer_id");
-                String emailResponse = customerObject.getString("email");
+//                int id = customerObject.getInt("customer_id");
+//                String emailResponse = customerObject.getString("email");
                 String password = customerObject.getString("password");
-                String firstName = customerObject.getString("first_name");
-                String lastName = customerObject.getString("last_name");
+//                String firstName = customerObject.getString("first_name");
+//                String lastName = customerObject.getString("last_name");
                 String user_type = customerObject.getString("user_type");
                 Toast.makeText(MainActivityLogin.this, user_type, Toast.LENGTH_SHORT).show();
 
@@ -126,8 +124,7 @@ public class MainActivityLogin extends AppCompatActivity {
                     Toast.makeText(MainActivityLogin.this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                //Toast.makeText(MainActivityLogin.this, "Error parsing response", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivityLogin.this, "Error parsing response", Toast.LENGTH_LONG).show();
             }
         }, err -> {
             if (err.networkResponse != null) {
@@ -136,7 +133,7 @@ public class MainActivityLogin extends AppCompatActivity {
                 Toast.makeText(MainActivityLogin.this, errorMsg, Toast.LENGTH_LONG).show();
             } else {
                 Log.e("VolleyError", err.toString()); //
-                Toast.makeText(MainActivityLogin.this, err.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivityLogin.this, "VOLLEY ERROR", Toast.LENGTH_LONG).show();
             }
         });
 

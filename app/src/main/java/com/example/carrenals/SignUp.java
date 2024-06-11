@@ -40,7 +40,7 @@ public class SignUp extends AppCompatActivity {
     Spinner country;
     Button register;
     TextView zip;
-    private static final String URL = "http://192.168.1.117/";
+    private static final String URL = "http://192.168.1.3/";
 
 
     @SuppressLint("MissingInflatedId")

@@ -92,7 +92,7 @@ private String url;
     }
 
     private void getUserInfo() {
-        StringRequest request = new StringRequest(Request.Method.GET, url+"/api/customers.php/?id="+customerId, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET, url+"/api/khalil/customers.php/?id="+customerId, res -> {
             try {
                 JSONObject obj = new JSONObject(res);
                 JSONObject customerObj = (JSONObject) obj.get("customer");
@@ -108,7 +108,7 @@ private String url;
 
         Volley.newRequestQueue(this).add(request);
 
-        StringRequest vendorRequest = new StringRequest(Request.Method.GET, url+"/api/vendors.php/?id="+vendorId, res -> {
+        StringRequest vendorRequest = new StringRequest(Request.Method.GET, url+"/api/khalil/vendors.php/?id="+vendorId, res -> {
             try {
                 JSONObject obj = new JSONObject(res);
                 JSONObject vendorObj = (JSONObject) obj.get("vendor");
@@ -153,7 +153,7 @@ private String url;
 
 
 
-        JsonObjectRequest customerRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/customers.php/?id="+customerId,updatedCustomerData,
+        JsonObjectRequest customerRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/khalil/customers.php/?id="+customerId,updatedCustomerData,
                 res -> {
             try {
                 Toast.makeText(VendorAccount.this, res.toString(), Toast.LENGTH_LONG).show();
@@ -165,7 +165,7 @@ private String url;
         Volley.newRequestQueue(this).add(customerRequest);
 
 
-        JsonObjectRequest vendorRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/vendors.php/?id="+vendorId,updatedVendorData,
+        JsonObjectRequest vendorRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/khalil/vendors.php/?id="+vendorId,updatedVendorData,
                 res -> {
                     try {
                         Toast.makeText(VendorAccount.this, res.toString(), Toast.LENGTH_LONG).show();
