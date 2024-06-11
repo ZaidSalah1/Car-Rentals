@@ -154,14 +154,54 @@
     <string name="menu_favourite">Favourite</string>
 
 
+    <string name="app_rami">FinanceApp</string>
+    <string-array name="car_brands">
+        <item>BMW</item>
+        <item>Audi</item>
+        <item>Mercedes</item>
+        <item>Jeep</item>
+    </string-array>
 
-        <string name="app_rami">FinanceApp</string>
-        <string-array name="car_brands">
-            <item>BMW</item>
-            <item>Audi</item>
-            <item>Mercedes</item>
-            <item>Jeep</item>
-        </string-array>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
+    </style>
+
+    <!-- ImageView style -->
+    <style name="ImageViewStyle">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <!-- TextView style -->
+    <style name="TextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <!-- MaterialCardView style -->
+    <style name="MaterialCardViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardElevation">10dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!-- TextInputLayout style -->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">#F8F8F8</item>
+        <item name="counterEnabled">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
 
 
 </resources>

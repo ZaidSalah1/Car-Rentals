@@ -1,59 +1,72 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:id="@+id/main">
+    android:padding="16dp">
 
-    <EditText
-        android:id="@+id/brandField"
+    <!-- Spinner for Model -->
+    <Spinner
+        android:id="@+id/modelSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Brand" />
+        android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/modelField"
+    <!-- Spinner for Brand -->
+    <Spinner
+        android:id="@+id/brandSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Model" />
+        android:layout_below="@id/modelSpinner"
+        android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/colorField"
+    <!-- Spinner for Car Images -->
+    <Spinner
+        android:id="@+id/imageSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Color" />
+        android:layout_below="@id/brandSpinner"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/numOfSeatsField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Number of Seats"
-        android:inputType="number" />
-
+    <!-- EditText for Plate Number -->
     <EditText
         android:id="@+id/plateNumberField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Plate Number" />
+        android:layout_below="@id/imageSpinner"
+        android:hint="Plate Number"
+        android:inputType="text"
+        android:layout_marginBottom="16dp" />
 
+    <!-- EditText for Color -->
     <EditText
-        android:id="@+id/modelYearField"
+        android:id="@+id/colorField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Model Year"
-        android:inputType="number" />
+        android:layout_below="@id/plateNumberField"
+        android:hint="Color"
+        android:inputType="text"
+        android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/imageButton"
-        android:layout_width="match_parent"
+    <!-- CheckBox for Availability -->
+
+    <!-- Submit Button -->
+    <CheckBox
+        android:id="@+id/availabilityCheckBox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Image" />
+        android:layout_below="@id/colorField"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Available" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/availabilityCheckBox"
         android:text="Submit" />
-</LinearLayout>
+
+</RelativeLayout>

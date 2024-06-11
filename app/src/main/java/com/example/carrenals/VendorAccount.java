@@ -25,15 +25,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class VendorAccount extends AppCompatActivity {
-private String businessName;
-private int vendorId;
-private int customerId;
+    private String businessName;
+    private int vendorId;
+    private int customerId;
 
-private EditText businessNameField;
-private EditText firstNameField;
-private EditText lastNameField;
-private EditText phoneNumberField;
-private EditText emailField;
+    private EditText businessNameField;
+    private EditText firstNameField;
+    private EditText lastNameField;
+    private EditText phoneNumberField;
+    private EditText emailField;
 
     private TextView businessNameView;
     private TextView firstNameView;
@@ -42,10 +42,10 @@ private EditText emailField;
     private TextView emailView;
     private JSONObject userInfo;
 
-private EditText password;
+    private EditText password;
 
-private Button saveButton;
-private String url;
+    private Button saveButton;
+    private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +72,14 @@ private String url;
 
     }
     private void setupViews() {
-    businessNameField = findViewById(R.id.businessNameField);
-    firstNameField = findViewById(R.id.firstNameField);
-    lastNameField = findViewById(R.id.lastNameField);
-    phoneNumberField = findViewById(R.id.phoneNumberField);
-    emailField = findViewById(R.id.emailField);
-    saveButton = findViewById(R.id.saveButton);
+        businessNameField = findViewById(R.id.businessNameField);
+        firstNameField = findViewById(R.id.firstNameField);
+        lastNameField = findViewById(R.id.lastNameField);
+        phoneNumberField = findViewById(R.id.phoneNumberField);
+        emailField = findViewById(R.id.emailField);
+        saveButton = findViewById(R.id.saveButton);
 
-    businessNameView = findViewById(R.id.displayBusinessName);
+        businessNameView = findViewById(R.id.displayBusinessName);
         firstNameView = findViewById(R.id.displayFirstName);
         lastNameView = findViewById(R.id.displayLastName);
         phoneNumberView = findViewById(R.id.displayPhoneNumber);
@@ -92,7 +92,7 @@ private String url;
     }
 
     private void getUserInfo() {
-        StringRequest request = new StringRequest(Request.Method.GET, url+"/api/customers.php/?id="+customerId, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET, url+"/api/khalil/customers.php/?id="+customerId, res -> {
             try {
                 JSONObject obj = new JSONObject(res);
                 JSONObject customerObj = (JSONObject) obj.get("customer");
@@ -108,7 +108,7 @@ private String url;
 
         Volley.newRequestQueue(this).add(request);
 
-        StringRequest vendorRequest = new StringRequest(Request.Method.GET, url+"/api/vendors.php/?id="+vendorId, res -> {
+        StringRequest vendorRequest = new StringRequest(Request.Method.GET, url+"/api/khalil/vendors.php/?id="+vendorId, res -> {
             try {
                 JSONObject obj = new JSONObject(res);
                 JSONObject vendorObj = (JSONObject) obj.get("vendor");
@@ -153,19 +153,19 @@ private String url;
 
 
 
-        JsonObjectRequest customerRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/customers.php/?id="+customerId,updatedCustomerData,
+        JsonObjectRequest customerRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/khalil/customers.php/?id="+customerId,updatedCustomerData,
                 res -> {
-            try {
-                Toast.makeText(VendorAccount.this, res.toString(), Toast.LENGTH_LONG).show();
-            } catch (Exception ex) {
-                Toast.makeText(VendorAccount.this, "Fail", Toast.LENGTH_LONG).show();
-            }
-        }, err -> Toast.makeText(VendorAccount.this, err.toString(), Toast.LENGTH_LONG).show());
+                    try {
+                        Toast.makeText(VendorAccount.this, res.toString(), Toast.LENGTH_LONG).show();
+                    } catch (Exception ex) {
+                        Toast.makeText(VendorAccount.this, "Fail", Toast.LENGTH_LONG).show();
+                    }
+                }, err -> Toast.makeText(VendorAccount.this, err.toString(), Toast.LENGTH_LONG).show());
 
         Volley.newRequestQueue(this).add(customerRequest);
 
 
-        JsonObjectRequest vendorRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/vendors.php/?id="+vendorId,updatedVendorData,
+        JsonObjectRequest vendorRequest = new JsonObjectRequest(Request.Method.PUT, url+"/api/khalil/vendors.php/?id="+vendorId,updatedVendorData,
                 res -> {
                     try {
                         Toast.makeText(VendorAccount.this, res.toString(), Toast.LENGTH_LONG).show();
