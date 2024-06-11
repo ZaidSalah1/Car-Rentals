@@ -3,6 +3,7 @@ package com.example.carrenals;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.example.carrenals.Adapter.BrandsAdapter;
 import com.example.carrenals.Adapter.CarsAdapter;
 import com.example.carrenals.Model.BrandsModel;
 import com.example.carrenals.Model.CarModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<CarModel> cars = new ArrayList<>();
     private static final String URL = "http://192.168.1.117/api/top_cars.php";
     private static final String URL_Brands = "http://192.168.1.117/api/get_brands.php";
-
+    private BottomNavigationView bottomNavigationView;
     private RecyclerView brandRecyclerView,topCarsRecyclerView;
     private BrandsAdapter brandsAdapter;
     private ArrayList<BrandsModel> modelsList;
@@ -47,25 +50,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textInputEditText = findViewById(R.id.textInputEditText);
-
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
        // logoutButton = findViewById(R.id.logoutButton);
 
         loadCars();
         modelsList = new ArrayList<>();
         loadBrands();
-//        logoutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, MainActivityLogin.class);
-//                startActivity(intent);
-//                finish(); // Finish MainActivity to ensure onDestroy is called
-//            }
-//        });
+
 
 
         textInputEditText = findViewById(R.id.textInputEditText);
 
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_about) {
+                    openAboutActivity();
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_profile) {
+                    // Handle profile navigation
+                    openProfileActivity();
+                    return true;
+                }
+                else if(item.getItemId() == R.id.navigation_Finnance){
+
+                    openFinnanceActivity();
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
 
@@ -146,7 +163,20 @@ public class MainActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(MainActivity.this).add(stringRequest);
     }
+    private void openProfileActivity() {
+        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(profileIntent);
+    }
+    public void openAboutActivity(){
+        Intent AboutIntent = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(AboutIntent);
+    }
+    public void openFinnanceActivity(){
 
+        Intent intent = new Intent(MainActivity.this, FinanceActivity.class);
+        startActivity(intent);
+
+    }
 
 
 

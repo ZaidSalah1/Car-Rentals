@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Profile Page"
+        app:titleTextColor="@color/white" />
+
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile"
+
+        android:elevation="4dp" />
+
+    <!-- First Name -->
+    <TextView
+        android:id="@+id/firstNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileImageView"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"
+        android:text="First Name"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center" />
+
+    <!-- Last Name -->
+    <TextView
+        android:id="@+id/lastNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstNameTextView"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="Last Name"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif"
+        android:gravity="center" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastNameTextView"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="Email"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif"
+        android:gravity="center" />
+
+    <!-- Sign Out Button -->
+    <Button
+        android:id="@+id/signOutButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="Sign Out"
+        android:textColor="@color/white"
+        android:background="?attr/colorAccent"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:fontFamily="sans-serif-medium"
+        android:elevation="4dp" />
+
+    <!-- Edit Button -->
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signOutButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Edit"
+        android:textColor="@color/white"
+        android:background="?attr/colorPrimary"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:fontFamily="sans-serif-medium"
+        android:elevation="4dp" />
+
+</RelativeLayout>

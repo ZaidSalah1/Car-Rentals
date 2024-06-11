@@ -8,38 +8,7 @@
     android:orientation="vertical"
     android:padding="7dp">
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:cardCornerRadius="15dp"-->
-<!--            app:cardElevation="15dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            app:cardBackgroundColor="@color/white"> &lt;!&ndash; Set background color here &ndash;&gt;-->
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_margin="20dp">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/topBrandImage"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:src="@drawable/bmw_icon" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/topBrandTxt"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="BMW"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:textSize="50dp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginLeft="50dp" />-->
-<!--            </LinearLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

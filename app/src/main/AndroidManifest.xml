@@ -17,7 +17,18 @@
         android:theme="@style/Theme.CarRenals"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FinanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="false" />
         <activity
             android:name=".Welcome"
             android:exported="true">
@@ -26,9 +37,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Existing Activities -->
+        </activity> <!-- Existing Activities -->
         <activity
             android:name=".MainActivityLogin"
             android:exported="true" />

@@ -152,4 +152,16 @@
     <string name="menu_car">Car</string>
     <string name="menu_reservation">Reservation</string>
     <string name="menu_favourite">Favourite</string>
+
+
+
+        <string name="app_rami">FinanceApp</string>
+        <string-array name="car_brands">
+            <item>BMW</item>
+            <item>Audi</item>
+            <item>Mercedes</item>
+            <item>Jeep</item>
+        </string-array>
+
+
 </resources>

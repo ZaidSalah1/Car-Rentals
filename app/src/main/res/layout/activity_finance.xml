@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    tools:context=".FinanceActivity">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="32dp"
+        android:text="Luxurious Finance Overview" />
+
+    <!-- Professional Image -->
+    <ImageView
+        android:id="@+id/imageViewProfessional"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/mony2"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="16dp" />
+
+    <!-- New ImageView to show selected car brand image -->
+    <ImageView
+        android:id="@+id/imageViewSelectedCar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageViewProfessional"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
+
+    <Switch
+        android:id="@+id/switchAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Action"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <!-- Finance Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imageViewSelectedCar"
+        android:paddingTop="16dp"
+        android:background="@drawable/rounded_corners"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- ListView for finance items -->
+            <ListView
+                android:id="@+id/listViewFinance"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:padding="8dp" />
+
+            <!-- TextView for total income -->
+            <TextView
+                android:id="@+id/textViewRentingIncome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Income will be displayed here"
+                android:padding="16dp"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

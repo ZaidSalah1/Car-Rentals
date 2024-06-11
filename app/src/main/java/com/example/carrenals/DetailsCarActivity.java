@@ -46,7 +46,7 @@ public class DetailsCarActivity extends AppCompatActivity {
             txtYear.setText("Year: " + year);
             txtColor.setText("Color: " + color);
             txtSeats.setText("Seats: " + seats);
-            txtTransmission.setText("Transmission: " + transmission);
+
             txtPrice.setText("Rental Price: " + price);
             txtAvailable.setText("Availability: " + available);
             Glide.with(this).load(img).into(imageView);
